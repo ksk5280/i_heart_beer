@@ -24,17 +24,18 @@ class UsersController < ApplicationController
   end
 
   def edit
-    find_user
+    @user = current_user
   end
 
   def update
     find_user
+
     if @user.update(user_params)
       flash[:success] = "Account edited"
       redirect_to @user
     else
-      flash.now[:error] = @user.errors.full_messages.to_sentence
-      render :show
+      flash.now[:error] = "Failed to update account"
+      render :edit
     end
   end
 
