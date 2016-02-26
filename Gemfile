@@ -38,6 +38,7 @@ group :development, :test do
   gem 'shoulda-matchers', '~> 3.1'
   gem 'launchy'
   gem 'pry-rails'
+  gem 'pry-nav'
 end
 
 group :development do

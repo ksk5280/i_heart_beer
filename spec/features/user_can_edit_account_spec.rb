@@ -29,17 +29,15 @@ RSpec.feature "User can edit account" do
       visit '/'
       click_on "Login"
       fill_in "Username", with: "kimiko"
-      fill_in "Password", with: "fdhfdksj"
+      fill_in "Password", with: "password"
       click_button "Login"
 
-      visit user_path(user)
       click_on "Edit"
-      fill_in "Username", with: "kimi"
+      fill_in "Username", with: "kimiko"
       fill_in "Password", with: ""
+      click_button "Submit Changes"
 
-# an empty password doesn't cause the password to change at the moment
-      expect(page).to have_content "Invalid Account Information"
-      expect(page).to have_content "kimiko"
+      expect(page).to have_content "Failed to update account"
     end
   end
 end

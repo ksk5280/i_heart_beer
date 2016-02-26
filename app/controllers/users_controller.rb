@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  # before_action :if_current_user, only: [:edit, :update, :destroy]
+
   def index
     @users = User.all
   end
@@ -29,12 +31,13 @@ class UsersController < ApplicationController
 
   def update
     find_user
+
     if @user.update(user_params)
       flash[:success] = "Account edited"
       redirect_to @user
     else
-      flash.now[:error] = @user.errors.full_messages.to_sentence
-      render :show
+      flash.now[:error] = "Failed to update account"
+      render :edit
     end
   end
 
@@ -47,4 +50,9 @@ private
   def find_user
     @user = User.find(params[:id])
   end
+  
+  # def if_current_user
+  #   @user = User.find(params[:id])
+  #   redirect_to :index unless current_user == @user
+  # end
 end
