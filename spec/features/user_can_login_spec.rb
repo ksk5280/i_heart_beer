@@ -19,14 +19,16 @@ RSpec.feature "User can login" do
 
   context "with invalid password" do
     scenario "they see an error message" do
-      # as a user
-      # when I visit the home page
-      # and click Login
-      # and fill in username
-      # and fill in invalid password
-      # and click login
-      # expect to see error message
-      # expect(page).to_not have_content "Kimiko"
+      user = User.create(username: "Kimiko", password: "password")
+
+      visit '/'
+      click_on "Login"
+      fill_in "Username", with: "Kimiko"
+      fill_in "Password", with: "fdhfdksj"
+      click_button "Login"
+
+      expect(page).to have_content "Invalid Login"
+      expect(page).to_not have_content "Kimiko"
     end
   end
 end
