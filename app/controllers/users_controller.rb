@@ -20,12 +20,31 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find(params[:id])
+    find_user
   end
 
-  private
+  def edit
+    find_user
+  end
+
+  def update
+    find_user
+    if @user.update(user_params)
+      flash[:success] = "Account edited"
+      redirect_to @user
+    else
+      flash.now[:error] = @user.errors.full_messages.to_sentence
+      render :show
+    end
+  end
+
+private
 
   def user_params
-    params.require(:user).permit(:username, :password, :role)
+    params.require(:user).permit(:username, :password)
+  end
+
+  def find_user
+    @user = User.find(params[:id])
   end
 end
