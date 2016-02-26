@@ -9,6 +9,9 @@ class UsersController < ApplicationController
       session[:user_id] = @user.id
       flash[:success] = "Thank you for registering for I Heart Beer!"
       redirect_to @user
+    else
+      flash.now[:error] = @user.errors.full_messages.to_sentence
+      render :new
     end
   end
 
