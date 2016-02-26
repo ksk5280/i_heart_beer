@@ -10,10 +10,10 @@ RSpec.feature "User can create an account" do
 
     user = User.last
 
-    assert user_path(user), current_path
-    assert page.has_content? "Kimiko"
+    expect(user_path(user)).to eq(current_path)
+    expect(page).to have_content "Kimiko"
     within ".flash-success" do
-      assert page.has_content? "Thank you for registering for I Heart Beer!"
+      expect(page).to have_content "Thank you for registering for I Heart Beer!"
     end
   end
 
@@ -25,7 +25,7 @@ RSpec.feature "User can create an account" do
       click_on "Register"
 
       within ".flash-error" do
-        assert page.has_content? "Username can't be blank"
+        expect(page).to have_content "Username can't be blank"
       end
     end
   end
