@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  # before_action :if_current_user, only: [:edit, :update, :destroy]
+
   def index
     @users = User.all
   end
@@ -48,4 +50,9 @@ private
   def find_user
     @user = User.find(params[:id])
   end
+  
+  # def if_current_user
+  #   @user = User.find(params[:id])
+  #   redirect_to :index unless current_user == @user
+  # end
 end
