@@ -1,14 +1,12 @@
 require "rails_helper"
 
 RSpec.feature "User can edit account" do
+  include SignInHelpers
+
   scenario "They see new account info" do
     user = User.create(username: "kimiko", password: "password")
 
-    visit '/'
-    click_on "Login"
-    fill_in "Username", with: user.username
-    fill_in "Password", with: "password"
-    click_button "Login"
+    user_logs_in(user)
 
     visit user_path(user)
     click_on "Edit"
@@ -26,11 +24,7 @@ RSpec.feature "User can edit account" do
     scenario "they see an error message" do
       user = User.create(username: "kimiko", password: "password")
 
-      visit '/'
-      click_on "Login"
-      fill_in "Username", with: "kimiko"
-      fill_in "Password", with: "password"
-      click_button "Login"
+      user_logs_in(user)
 
       click_on "Edit"
       fill_in "Username", with: "kimiko"

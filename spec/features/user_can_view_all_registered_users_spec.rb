@@ -1,16 +1,14 @@
 require 'rails_helper'
 
 RSpec.feature "User can view all registered users" do
+  include SignInHelpers
+  
   scenario "They see a list of all users" do
     user1 = User.create(username: "kimiko", password: "password")
     user2 = User.create(username: "julian", password: "password")
     user3 = User.create(username: "hoyoul", password: "password")
 
-    visit '/'
-    click_on "Login"
-    fill_in "Username", with: user1.username
-    fill_in "Password", with: "password"
-    click_button "Login"
+    user_logs_in(user1)
 
     click_link "All Users"
 

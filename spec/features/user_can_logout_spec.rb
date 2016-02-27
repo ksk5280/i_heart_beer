@@ -1,17 +1,15 @@
 require 'rails_helper'
 
 RSpec.feature "User can log out" do
-  scenario "They see login page" do
-    user = User.create(username: "Kimiko", password: "password")
+  include SignInHelpers
 
-    visit '/'
-    click_on "Login"
-    fill_in "Username", with: user.username
-    fill_in "Password", with: "password"
-    click_button "Login"
+  scenario "They see login page" do
+    user = User.create(username: "kimiko", password: "password")
+
+    user_logs_in(user)
 
     expect(user_path(user)).to eq(current_path)
-    expect(page).to have_content "Kimiko"
+    expect(page).to have_content "kimiko"
     expect(page).to have_content "Logout"
     expect(page).to_not have_content "Login"
 
