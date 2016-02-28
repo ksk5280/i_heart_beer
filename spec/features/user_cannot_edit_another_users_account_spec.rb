@@ -10,13 +10,9 @@ RSpec.feature "User cannot edit another users account" do
 
     user_logs_in(user1)
 
-    # when I visit the users page
     visit users_path
-    # When I click on a user
     click_on "hoyoul"
-    # I expect to see their show page
     expect(page).to have_content "hoyoul"
-    # I expect to not be able to edit their account info
     expect(page).to_not have_content "Edit"
   end
 end
